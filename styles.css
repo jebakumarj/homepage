@@ -1,0 +1,197 @@
+/* Simple responsive styles for a clean new tab homepage */
+:root{
+  /* base (dark) theme variables */
+  --bg:#071021;
+  --card:#0b1220;
+  --muted:#9aa4b2;
+  --accent:#60a5fa;
+  --glass: rgba(255,255,255,0.02);
+  --text: #e6eef6;
+  --title: #eaf4ff;
+  --panel-start: #061322;
+  --panel-end: #091725;
+  --card-grad-start: rgba(255,255,255,0.02);
+  --card-grad-end: rgba(255,255,255,0.01);
+  --btn-text: #07203a;
+
+  /* contrast helpers */
+  --badge-bg: rgba(255,255,255,0.06); /* stronger */
+  --badge-text: #ffffff; /* ensure readable */
+  --badge-border: rgba(0,0,0,0.16);
+  --cat-icon-text: #fff;
+  --suggestion-hover: rgba(255,255,255,0.04);
+  --filter-text: #dbeaf8;
+  /* filter button defaults */
+  --filter-border: rgba(255,255,255,0.08);
+  --filter-btn-bg: rgba(255,255,255,0.01);
+  /* input and panel borders */
+  --input-border: rgba(255,255,255,0.60);
+  --panel-border: rgba(255,255,255,0.24);
+}
+
+/* Light theme overrides */
+.light-theme{
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --muted: #4b5563;
+  --accent: #2563eb;
+  --glass: rgba(2,6,23,0.03);
+  --text: #0b1220;
+  --title: #0b1220;
+  --panel-start: #ffffff;
+  --panel-end: #f4f7fb;
+  --card-grad-start: rgba(2,6,23,0.02);
+  --card-grad-end: rgba(2,6,23,0.01);
+  --btn-text: #ffffff;
+  /* light contrast overrides */
+  --badge-bg: rgba(2,6,23,0.06); /* stronger on light */
+  --badge-text: #0b1220;
+  --badge-border: rgba(2,6,23,0.16);
+  --cat-icon-text: #fff;
+  --suggestion-hover: rgba(2,6,23,0.06);
+  --filter-text: #0b1220;
+  /* light theme filter chip tweaks */
+  --filter-border: rgba(2,6,23,0.16);
+  --filter-btn-bg: rgba(2,6,23,0.04);
+  /* input and panel borders for light theme */
+  --input-border: rgba(2,6,23,0.60);
+  --panel-border: rgba(2,6,23,0.24);}
+
+/* Dark theme explicit class (optional, matches default) */
+.dark-theme{
+  --bg:#071021;
+  --card:#0b1220;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--card) 100%);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:1100px;margin:0 auto;padding:20px;}
+.site-header{padding:48px 0;position:relative}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.controls .btn{margin-left:8px}
+h1{font-size:1.6rem;margin:0;font-weight:600}
+.name{color:var(--accent)}
+/* Clock wrapper (centers time and date) */
+.clock-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+.big-clock{font-family:Inter, ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;font-size:1.6rem;font-weight:600;color:var(--title);margin:0;background:none;border:none;text-align:center;pointer-events:auto}
+/* Small inline clock kept for narrow viewports */
+.mobile-clock{display:none;align-items:center;gap:8px}
+.clock{display:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:520px){
+  .site-header{padding:18px 0}
+  .site-header .container{flex-direction:column;align-items:flex-start}
+  .big-clock{position:static;transform:none;font-size:1.6rem;margin:10px 0 0}
+  .big-date{font-size:0.95rem;color:var(--muted);margin:6px 0 0;text-transform:none}
+  .clock{display:inline-block;font-family:monospace;font-size:0.95rem;color:var(--muted);margin-left:8px;padding:4px 8px;border-radius:8px;background:var(--filter-btn-bg);border:1px solid var(--panel-border)}
+  .small-date{display:inline-block;font-size:0.85rem;color:var(--muted);margin-left:8px}
+}
+
+/* Desktop: show big date under big clock */
+.big-date{display:block;font-size:0.95rem;color:var(--muted);margin:6px 0 0;text-transform:none}
+.small-date{display:none}  
+.btn{background:var(--accent);border:none;color:var(--btn-text);padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn-secondary{background:transparent;border:1px solid var(--panel-border);color:var(--muted)}
+.grid{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;width:100%;justify-content:flex-start}
+/* each card is a square and flows left-to-right; resize with min-width */
+.card{flex:0 0 100px;min-width:80px}
+.card{
+  background: linear-gradient(180deg, var(--card-grad-start), var(--card-grad-end));
+  border-radius:8px;padding:6px;position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;box-shadow:0 1px 4px rgba(2,6,23,0.5);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.card:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(2,6,23,0.5)}
+.card:focus{outline:2px solid rgba(96,165,250,0.12);outline-offset:2px}
+.card .favicon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--glass);flex:0 0 auto}
+/* Drag visuals */
+.card[draggable="true"]{cursor:grab}
+.card.dragging{opacity:0.6;transform:scale(0.98)!important}
+.card.drag-over{outline:2px dashed var(--accent);z-index:2;background:linear-gradient(180deg, rgba(96,165,250,0.04), rgba(96,165,250,0.02));transform:none}
+
+.card .favicon img{width:24px;height:24px;object-fit:contain}
+.card .title{font-size:0.78rem;font-weight:600;margin:4px 0 0;color:var(--title);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .url{display:none}
+.hidden{display:none !important}
+.badge .dot.hidden{display:none}
+.small-input{width:56px}
+.card .actions{display:none}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.modal.hidden{display:none}
+.modal-panel{background:linear-gradient(180deg,var(--panel-start),var(--panel-end));padding:18px;border-radius:12px;min-width:320px;border:1px solid var(--panel-border)}
+#addForm{display:flex;flex-direction:column;gap:12px}
+#urlInput{padding:10px;border-radius:8px;border:1px solid var(--input-border);background:transparent;color:inherit}
+.input{padding:10px;border-radius:8px;border:1px solid var(--input-border);background:transparent;color:inherit; width: 100%;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px}
+@media (max-width:420px){.site-header .container{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}}
+
+/* Context menu */
+.context-menu{position:fixed;background:linear-gradient(180deg,var(--panel-start),var(--panel-end));border:1px solid var(--panel-border);padding:6px;border-radius:8px;box-shadow:0 8px 32px rgba(2,6,23,0.6);z-index:9999;display:flex;flex-direction:column;gap:6px;color:var(--text)}
+.context-menu.hidden{display:none}
+.context-menu button{background:transparent;border:0;color:var(--muted);padding:8px 10px;border-radius:6px;text-align:left;cursor:pointer}
+.context-menu button:hover{background:var(--suggestion-hover);color:var(--title)}
+
+/* category suggestions use panel colors so they adapt to theme */
+.category-suggestions{position:absolute;left:0;right:0;top:44px;background:linear-gradient(180deg,var(--panel-start),var(--panel-end));border:1px solid var(--panel-border);border-radius:8px;box-shadow:0 8px 24px rgba(2,6,23,0.6);padding:8px;z-index:999}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.filter-btn{background:var(--filter-btn-bg, transparent);border:1px solid var(--filter-border);padding:8px 12px;border-radius:999px;color:var(--filter-text);cursor:pointer}
+.filter-btn .badge .label{color:var(--filter-text)}
+.filter-btn .badge .icon.small{font-size:0.85rem}
+.filter-btn .badge{padding:6px 10px;gap:10px}
+.filter-btn.active{background:var(--accent);color:var(--btn-text);border-color:transparent}
+/* make badge inherit styles when parent button is active so visuals are uniform */
+.filter-btn.active .badge .label{color:inherit}
+.filter-actions{margin-left:auto;display:flex;gap:10px}
+#manageCatsBtn{background:var(--filter-btn-bg, transparent);border:1px solid var(--filter-border);padding:8px 12px;border-radius:8px;color:var(--filter-text);cursor:pointer}
+
+/* Category badge */
+.badge{display:inline-flex;align-items:center;gap:10px;padding:6px 10px;border-radius:999px}
+.badge .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;border:1px solid var(--badge-border);box-shadow:0 1px 0 rgba(0,0,0,0.28) inset}
+.badge .icon{font-size:0.95rem;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;}
+.badge .label{font-weight:600;color:var(--badge-text);font-size:0.85rem}
+
+/* card category icon */
+.card .cat-icon{position:absolute;top:6px;left:6px;width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:var(--cat-icon-text);font-size:12px;font-weight:600;border:1px solid var(--badge-border);box-shadow:0 1px 0 rgba(0,0,0,0.28) inset;text-shadow:0 1px 0 rgba(0,0,0,0.25)}
+
+/* category picker under add form */
+.pos-relative{position:relative}
+.category-suggestions{position:absolute;left:0;right:0;top:44px;background:linear-gradient(180deg,var(--panel-start),var(--panel-end));border:1px solid var(--panel-border);border-radius:8px;box-shadow:0 8px 24px rgba(2,6,23,0.6);padding:8px;z-index:999}
+.category-suggestions.hidden{display:none}
+.category-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:6px;cursor:pointer}
+.category-item:hover{background:var(--suggestion-hover)}
+.category-item .dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--badge-border);box-shadow:0 1px 0 rgba(0,0,0,0.28) inset}
+.category-item .icon{width:20px;height:20px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--badge-border);box-shadow:0 1px 0 rgba(0,0,0,0.28) inset}
+
+/* Category header */
+.cat-group{margin-top:18px}
+
+/* Manage modal tweaks */
+#manageList{display:flex;flex-direction:column;gap:8px;max-height:300px;overflow:auto;padding-top:6px}
+.manage-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;border:1px solid var(--panel-border);background:var(--muted-overlay,rgba(255,255,255,0.01))}
+.manage-item input[type="text"]{flex:1;padding:6px;border-radius:6px;border:1px solid var(--input-border);background:transparent;color:inherit}
+.manage-item .small-btn{padding:6px 8px;border-radius:6px;border:0;background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer}
+
+/* small tweaks for modal inputs */
+.modal-panel label{font-size:0.85rem;color:var(--muted);margin-top:6px}
+
+/* Toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:linear-gradient(180deg,#0b1720,#061323);border:1px solid var(--panel-border);padding:10px 14px;border-radius:10px;box-shadow:0 10px 40px rgba(2,6,23,0.7);color:#eaf4ff;z-index:9999;min-width:220px;text-align:center}
+.toast.hidden{display:none}
+.toast.success{background:linear-gradient(180deg,#e6f8f7,#dbfff1);color:#07203a;border-color:rgba(6,95,70,0.3)}
+
+/* utility: destructive button */
+.btn.destructive{background:#ef4444;color:#fff;border-color:transparent}
+
+/* theme toggle has a subtle pressed state */
+#themeToggle[aria-pressed="true"]{box-shadow:0 2px 8px rgba(0,0,0,0.3) inset;transform:translateY(0.5px)}
+.toast.error{background:linear-gradient(180deg,#ffe9e9,#ffdede);color:#2b0a0a;border-color:rgba(95,6,6,0.2)}
+small{color:var(--muted)}
+.footer-note{margin-top:18px;color:var(--muted);font-size:0.85rem}

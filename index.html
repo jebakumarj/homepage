@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%232563eb'/><path d='M10 30 L32 12 L54 30 V52 H38 V36 H26 V52 H10 Z' fill='%23fff'/></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%232563eb'/><path d='M10 30 L32 12 L54 30 V52 H38 V36 H26 V52 H10 Z' fill='%23fff'/></svg>" />
+  <meta name="theme-color" content="#2563eb" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Welcome, <span class="name">Jebakumar</span> 👋</h1>
+      <div class="controls">
+        <div class="mobile-clock" aria-hidden="true">
+          <time id="clock" class="clock" aria-hidden="true" title="Current time"></time>
+          <span id="smallDate" class="small-date" aria-hidden="true"></span>
+        </div>
+        <button id="themeToggle" class="btn btn-secondary" aria-pressed="false" aria-label="Toggle theme" title="Toggle theme (T)">🌙</button>
+        <button id="addBtn" class="btn" aria-controls="modal" aria-haspopup="dialog" aria-label="Add URL" title="Add URL (N)">+ Add URL</button>
+      </div>
+    </div>
+    <div class="clock-wrap" aria-hidden="true">
+      <h1 id="bigClock" class="big-clock" aria-hidden="true" title="Current time"></h1>
+      <p id="bigDate" class="big-date" aria-hidden="true"></p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav id="filterBar" class="filter-bar" aria-label="Category filters"></nav>
+    <section id="links" class="grid" aria-live="polite"></section>
+  </main>
+
+  <!-- Manage Categories Modal -->
+  <div id="manageModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="manageTitle">
+    <div class="modal-panel">
+      <h2 id="manageTitle">Manage Categories</h2>
+      <div id="manageList"></div>
+      <div class="modal-actions">
+        <button id="manageClose" class="btn btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add URL Modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <h2 id="modalTitle">Add a new URL</h2>
+      <form id="addForm">
+        <label for="nameInput">Name (optional)</label>
+        <input class="input" type="text" id="nameInput" name="name" placeholder="Gmail, GitHub, My Blog" />
+
+        <label for="categoryInput">Category (optional)</label>
+        <div class="pos-relative">
+          <input class="input" type="text" id="categoryInput" name="category" autocomplete="off" placeholder="e.g., Work, Social, News" />
+          <div id="categorySuggestions" class="category-suggestions hidden" role="listbox" aria-label="Categories"></div>
+        </div>
+        <datalist id="categoryList"></datalist>
+
+        <label for="urlInput">URL</label>
+        <input class="input" type="text" id="urlInput" name="url" placeholder="https://example.com (or example.com)" required />
+
+        <div class="modal-actions">
+          <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="submitBtn" class="btn">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-hidden="true">
+    <div class="modal-panel">
+      <h3 id="confirmTitle">Confirm</h3>
+      <p id="confirmMessage">Are you sure?</p>
+      <div class="modal-actions">
+        <button id="confirmCancel" class="btn btn-secondary">Cancel</button>
+        <button id="confirmOk" class="btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="contextMenu" class="context-menu hidden" role="menu" aria-hidden="true">
+    <button id="ctxEdit" role="menuitem">Edit</button>
+    <button id="ctxDelete" role="menuitem">Delete</button>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
